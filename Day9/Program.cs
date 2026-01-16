@@ -15,7 +15,7 @@ namespace SalesAnalysisSystem
                 while (!isValid)
                 {
                     Console.Write($"Enter sales for Day {i + 1}: ");
-                    [cite_start]if (decimal.TryParse(Console.ReadLine(), out decimal value) && value >= 0) 
+                    if (decimal.TryParse(Console.ReadLine(), out decimal value) && value >= 0) 
                     {
                         dailySales[i] = value;
                         isValid = true;

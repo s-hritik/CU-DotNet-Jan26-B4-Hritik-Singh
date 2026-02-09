@@ -123,7 +123,7 @@ namespace ElectricAppliance
 
     internal class Program
     {
-        static void M()
+        static void Main(string[] args)
         {
             List<ElectricAppliance> factoryLine = new List<ElectricAppliance>
             {

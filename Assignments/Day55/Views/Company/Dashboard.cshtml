@@ -1,0 +1,44 @@
+@model List<Employee>
+
+<div class="container mt-4">
+    <h2>@ViewData["DepartmentName"]</h2>
+
+    <div class="alert alert-info">
+        <strong>Notice:</strong> @ViewBag.DailyAnnouncement
+    </div>
+
+    <div class="mb-3">
+        Status: 
+        @if ((bool)ViewData["IsActive"]) 
+        {
+            <span class="badge bg-success">Active</span>
+        }
+        else
+        {
+            <span class="badge bg-danger">Under Maintenance</span>
+        }
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach(var v in Model){
+                <tr>
+                    <td>@v.Id</td>
+                    <td>@v.Name</td>
+                    <td>@v.Position</td>
+                    <td>@v.Salary</td>
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

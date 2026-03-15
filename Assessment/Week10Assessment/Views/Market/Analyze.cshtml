@@ -1,0 +1,11 @@
+@{
+    ViewData["Title"] = "Market Analysis";
+}
+
+<div class="jumbotron p-5 bg-light border rounded">
+    <h2>Analysis for: <span class="text-primary">@ViewBag.Ticker</span></h2>
+    <p class="lead">Historical Data Period: <strong>@ViewBag.Days days</strong></p>
+    <hr />
+    <p>This data is generated using specialized attribute routing.</p>
+    <a asp-action="Summary" class="btn btn-secondary">Back to Summary</a>
+</div>

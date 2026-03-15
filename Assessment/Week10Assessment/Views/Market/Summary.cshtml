@@ -1,0 +1,21 @@
+@{
+    ViewData["Title"] = "Market Summary";
+}
+
+<h2>Market Trends</h2>
+
+<div class="alert @(ViewBag.MarketStatus == "Open" ? "alert-success" : "alert-danger") shadow-sm" role="alert">
+    <strong>Market Status:</strong> @ViewBag.MarketStatus
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card border-primary">
+            <div class="card-header bg-primary text-white">Top Gainer</div>
+            <div class="card-body">
+                <h3 class="card-title">@ViewData["TopGainer"]</h3>
+                <p class="card-text">Trading Volume: @String.Format("{0:n0}", ViewData["Volume"])</p>
+            </div>
+        </div>
+    </div>
+</div>

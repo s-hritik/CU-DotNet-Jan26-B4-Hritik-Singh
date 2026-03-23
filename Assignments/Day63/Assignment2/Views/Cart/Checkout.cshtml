@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = "Secure Checkout";
+}
+
+<h2>Your Shopping Cart</h2>
+<div class="card">
+    <div class="card-body">
+        <p>Promo Code Applied: <strong>@ViewBag.AppliedCode</strong></p>
+        <hr />
+        <h4>Final Total: $@ViewBag.FinalTotal</h4>
+    </div>
+</div>
+
+<a asp-controller="Products" asp-action="Index" class="btn btn-secondary">Back to Products</a>

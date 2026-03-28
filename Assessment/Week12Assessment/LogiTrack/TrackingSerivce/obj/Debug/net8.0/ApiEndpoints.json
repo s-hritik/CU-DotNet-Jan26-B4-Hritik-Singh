@@ -1,0 +1,22 @@
+[
+  {
+    "ContainingType": "TrackingSerivce.Controllers.TrackingController",
+    "Method": "ForDriver",
+    "RelativePath": "api/Tracking/ForDriver",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TrackingSerivce.Controllers.TrackingController",
+    "Method": "ForManager",
+    "RelativePath": "api/Tracking/ForManager",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

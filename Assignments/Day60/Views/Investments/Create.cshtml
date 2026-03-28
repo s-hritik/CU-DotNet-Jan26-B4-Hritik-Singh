@@ -1,0 +1,67 @@
+@model Day60.ViewModels.InvestmentViewModel
+@{
+    ViewData["Title"] = "Add Investment";
+}
+
+<h2>Add New Investment</h2>
+<hr />
+
+<div class="col-md-6">
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="TickerSymbol" class="form-label"></label>
+            <input asp-for="TickerSymbol" class="form-control" placeholder="e.g. SILVERBEES" />
+            <span asp-validation-for="TickerSymbol" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="AssetName" class="form-label"></label>
+            <input asp-for="AssetName" class="form-control" placeholder="e.g. Silver ETF" />
+            <span asp-validation-for="AssetName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label"></label>
+            <input asp-for="Price" type="number" step="0.01" class="form-control" placeholder="e.g. 850.50" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Quantity" class="form-label"></label>
+            <input asp-for="Quantity" type="number" class="form-control" placeholder="e.g. 10" />
+            <span asp-validation-for="Quantity" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Estimated Total Value</label>
+            <input id="totalValue" class="form-control" readonly placeholder="Will calculate automatically" />
+        </div>
+
+        <button type="submit" class="btn btn-success"> Save Investment</button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Live TotalValue calculation in the browser
+        const price = document.getElementById('Price');
+        const qty = document.getElementById('Quantity');
+        const total = document.getElementById('totalValue');
+
+        function updateTotal() {
+            const p = parseFloat(price.value) || 0;
+            const q = parseInt(qty.value) || 0;
+            total.value = '₹' + (p * q).toLocaleString('en-IN',
+                { minimumFractionDigits: 2 });
+        }
+        price.addEventListener('input', updateTotal);
+        qty.addEventListener('input', updateTotal);
+    </script>
+}

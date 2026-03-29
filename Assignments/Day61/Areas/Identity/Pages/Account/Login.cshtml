@@ -1,0 +1,62 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "CarManagement — Sign In";
+}
+
+<div class="text-center mb-4">
+    <h1 class="display-6 fw-bold text-primary">🚗 CarManagement Portal</h1>
+    <p class="text-muted">Sign in to manage your fleet</p>
+    <hr />
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white text-center">
+                <h5 class="mb-0">Login</h5>
+            </div>
+            <div class="card-body">
+                <form id="account" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Email" class="form-label"></label>
+                        <input asp-for="Input.Email" class="form-control" placeholder="admin@test.com" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Password" class="form-label"></label>
+                        <input asp-for="Input.Password" class="form-control" placeholder="••••••••" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input asp-for="Input.RememberMe" class="form-check-input" />
+                        <label asp-for="Input.RememberMe" class="form-check-label"></label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Sign In</button>
+                </form>
+            </div>
+            <div class="card-footer text-center text-muted">
+                <small>Don't have an account?
+                    <a asp-page="./Register">Register here</a>
+                </small>
+            </div>
+        </div>
+
+        {{!-- Quick login hint for testing --}}
+        <div class="alert alert-info mt-3">
+            <strong>Test Accounts:</strong><br />
+            👑 admin@test.com / Admin123<br />
+            🛒 customer@test.com / Customer123<br />
+            👤 user@test.com / User123
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

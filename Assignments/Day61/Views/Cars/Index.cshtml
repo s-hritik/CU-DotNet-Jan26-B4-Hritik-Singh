@@ -1,0 +1,47 @@
+@model IEnumerable<Day61.Models.Car>
+@{
+    ViewData["Title"] = "Car Inventory";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>🚗 Car Inventory</h2>
+    @if (User.IsInRole("Admin") || User.IsInRole("Customer"))
+    {
+        <a asp-action="Create" class="btn btn-success">+ Add Car</a>
+    }
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Price (₹)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>@car.Brand</td>
+                <td>@car.Model</td>
+                <td>@car.Year</td>
+                <td>@car.Price.ToString("N0")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-info btn-sm">Details</a>
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Customer"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-warning btn-sm">Edit</a>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@car.Id" class="btn btn-danger btn-sm">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

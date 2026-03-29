@@ -1,0 +1,34 @@
+[
+  {
+    "ContainingType": "IdentityService.Controllers.IdentityController",
+    "Method": "Login",
+    "RelativePath": "api/Identity/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "IdentityService.DTOs.LoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IdentityService.Controllers.IdentityController",
+    "Method": "Register",
+    "RelativePath": "api/Identity/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "IdentityService.DTOs.RegisterDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

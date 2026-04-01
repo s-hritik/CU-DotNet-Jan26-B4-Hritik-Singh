@@ -1,12 +1,46 @@
-@model Week10Assessment.Models.Asset
+@model weeek10.Models.Asset
 
-<h2>Asset Details</h2>
-<div>
-    <dl class="row">
-        <dt class="col-sm-2">Ticker</dt>
-        <dd class="col-sm-10">@Model.Ticker</dd>
-        <dt class="col-sm-2">Value</dt>
-        <dd class="col-sm-10">@Model.Value.ToString("C")</dd>
-    </dl>
+@{
+    ViewData["Title"] = "Asset Details";
+}
+
+<h1>Asset Details</h1>
+
+<div class="card mt-4">
+    <div class="card-header bg-primary text-white">
+        <h4>@Model.Name (@Model.Symbol)</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Purchased Price</dt>
+            <dd class="col-sm-9">₹@Model.PurchasedPrice</dd>
+            
+            <dt class="col-sm-3">Current Price</dt>
+            <dd class="col-sm-9">₹@Model.CurrentPrice</dd>
+            
+            <dt class="col-sm-3">Quantity</dt>
+            <dd class="col-sm-9">@Model.Quantity</dd>
+            
+            <dt class="col-sm-3">Total Value</dt>
+            <dd class="col-sm-9">
+                <strong>₹@Model.TotalPrice</strong>
+            </dd>
+            
+            <dt class="col-sm-3">Profit / Loss</dt>
+            <dd class="col-sm-9">
+                @if (Model.ProfitNLoss >= 0)
+                {
+                    <span class="text-success">+₹@Model.ProfitNLoss</span>
+                }
+                else
+                {
+                    <span class="text-danger">₹@Model.ProfitNLoss</span>
+                }
+            </dd>
+        </dl>
+    </div>
 </div>
-<a asp-action="Index" class="btn btn-secondary">Back</a>
+
+<div class="mt-3">
+    <a asp-action="Index" class="btn btn-secondary">Back to Portfolio</a>
+</div>

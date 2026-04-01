@@ -1,11 +1,27 @@
 @{
-    ViewData["Title"] = "Market Analysis";
+    ViewData["Title"] = $"Analyze{ViewBag.Ticker}";
 }
 
-<div class="jumbotron p-5 bg-light border rounded">
-    <h2>Analysis for: <span class="text-primary">@ViewBag.Ticker</span></h2>
-    <p class="lead">Historical Data Period: <strong>@ViewBag.Days days</strong></p>
-    <hr />
-    <p>This data is generated using specialized attribute routing.</p>
-    <a asp-action="Summary" class="btn btn-secondary">Back to Summary</a>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Summary">Market</a></li>
+        <li class="breadcrumb-item
+        active">@ViewBag.Ticker Analysis</li>
+    </ol>
+</nav>
+
+<div class="card-shadow">
+    <div class="card-header bg-primary text-white">
+        <h4>@ViewBag.Message</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <p><strong>Ticker:</strong>@ViewBag.Ticker</p>
+            <p><strong>Period:</strong>@ViewBag.Days days</p>
+        </div>
+        <div col-md-6>
+            <p><strong>Avg Price:</strong> ₹@ViewBag.AveragePrice</p>
+            <p><strong>Volatility:</strong> @ViewBag.Volatility%</p>
+        </div>
+    </div>
 </div>

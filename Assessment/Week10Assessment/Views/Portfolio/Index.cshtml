@@ -1,28 +1,59 @@
-@model IEnumerable<Week10Assessment.Models.Asset>
-
-<h2>Portfolio Management</h2>
-
-<div class="card mb-3 p-3 bg-light">
-    @{
-        double totalValue = (double)(ViewData["Total"] ?? 0.0); 
-        double futureValue = totalValue ; 
-    }
-    <h5>Total Value: @totalValue.ToString("C")</h5>
-</div>
-
-@if (TempData["Message"] != null) {
-    <div class="alert alert-info">@TempData["Message"]</div> 
+@model List<weeek10.Models.Asset>
+@{
+    ViewData["Title"] = "My Portfolio";
 }
 
-<table class="table">
-    @foreach (var item in Model) {
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<h2>Portfolio</h2>
+
+@{
+    double total = (double)ViewData["TotalPrice"]!;
+    double totalPluseFee = total + 500;
+}
+
+<div class="alert alert-info">
+    Portfolio Value : <strong>₹@total.ToString("N2")</strong>
+    With Advisory Fee: <strong>₹@totalPluseFee.ToString("N2")</strong>
+</div>
+
+<table class="table table-dashboard table-hover">
+    <thead class="table-dark">
         <tr>
-            <td>@item.Ticker</td>
-            <td>@item.Value.ToString("C")</td>
-            <td>
-                <a href="/Asset/Info/@item.Id" class="btn btn-sm btn-info">Details</a> 
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
-            </td>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Qty</th>
+            <th>Buy Price</th>
+            <th>Current</th>
+            <th>Total Value</th>
+            <th>ProfitNLoss</th>
+            <th>Actions</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var a in Model)
+        {
+            <tr class="@(a.ProfitNLoss >= 0 ? "table-success" : "table-danger")">
+                <td><strong>@a.Symbol</strong></td>
+                <td><strong>@a.Name</strong></td>
+                <td><strong>@a.Quantity</strong></td>
+                <td><strong>@a.PurchasedPrice.ToString("N2")</strong></td>
+                <td><strong>@a.CurrentPrice.ToString("N2")</strong></td>
+                <td><strong>@a.TotalPrice.ToString("N2")</strong></td>
+                <td><strong>@(a.ProfitNLoss >= 0 ? "+" : "")@a.ProfitNLoss.ToString("N2")</strong></td>
+                <td>
+                    <a asp-controller="Portfolio" asp-action="Details" asp-route-id="@a.Id"
+                       class="btn btn-info btn-sm">Info</a>
+                    <a asp-action="Delete" asp-route-id="@a.Id" class="btn btn-danger btn-sm"
+                       onclick="return confirm('Remove this Asset?')">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

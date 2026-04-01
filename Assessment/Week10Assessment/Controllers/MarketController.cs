@@ -1,21 +1,37 @@
-using System.Diagnostics;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Channels;
 using Microsoft.AspNetCore.Mvc;
-using Week10Assessment.Models;
 
-namespace Week10Assessment.Controllers;
-public class MarketController : Controller {
-    
-    public IActionResult Summary() {
-        ViewBag.MarketStatus = "Open"; 
-        ViewData["TopGainer"] = "NVDA"; 
-        ViewData["Volume"] = 150000000L; 
-        return View(); 
+namespace weeek10.Controllers;
+
+public class Market : Controller
+{
+    public IActionResult Summary()
+    {
+        var now = DateTime.Now;
+        bool isOpen = now.DayOfWeek != DayOfWeek.Saturday && now.DayOfWeek != DayOfWeek.Sunday && now.Hour > 9 && now.Hour < 16;
+
+        ViewBag.MarketStatus = isOpen ? "open" : "Closed";
+        ViewBag.StatusColor = isOpen ? "success" : "danger";
+
+        ViewData["TopGainer"] = "TATAMOTORS (+4.2%)";
+        ViewData["Volume"] = 1_482_300_000L;
+
+        return View();
     }
+    [HttpGet("Analyze/{ticker}/{days:int}")]
+    public IActionResult Analyze(string ticker, int? days)
+    {
+        int analysisDays = days ?? 30;
 
-    [HttpGet("Analyze/{ticker}/{days:int?}")] 
-    public IActionResult Analyze(string ticker, int? days) {
-        ViewBag.Ticker = ticker;
-        ViewBag.Days = days ?? 30; 
+        ViewBag.Ticker = ticker.ToUpper();
+        ViewBag.Days = analysisDays;
+        ViewBag.Message = $"Showing {analysisDays}-day analysis for {ticker.ToUpper()}";
+
+        ViewBag.AveragePrice = new Random().Next(1000, 5000);
+        ViewBag.Volatility = Math.Round(new Random().NextDouble() * 5, 2);
+
         return View();
     }
 }

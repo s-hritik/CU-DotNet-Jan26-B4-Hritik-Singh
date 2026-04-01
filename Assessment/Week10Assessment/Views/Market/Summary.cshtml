@@ -2,20 +2,35 @@
     ViewData["Title"] = "Market Summary";
 }
 
-<h2>Market Trends</h2>
-
-<div class="alert @(ViewBag.MarketStatus == "Open" ? "alert-success" : "alert-danger") shadow-sm" role="alert">
-    <strong>Market Status:</strong> @ViewBag.MarketStatus
+<div class="alert alert-@ViewBag.StatusColor alert-dismissible fade show" role="alert">
+    <h4 class="alert-heading">Market Status</h4>
+    <strong>NSE/BSE is Currently : @ViewBag.MarketStatus</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 </div>
 
-<div class="row mt-4">
-    <div class="col-md-6">
-        <div class="card border-primary">
-            <div class="card-header bg-primary text-white">Top Gainer</div>
-            <div class="card-body">
-                <h3 class="card-title">@ViewData["TopGainer"]</h3>
-                <p class="card-text">Trading Volume: @String.Format("{0:n0}", ViewData["Volume"])</p>
-            </div>
+<div class="col-md-4">
+    <div class="card border-success shadow">
+        <div class="card-header bg-success text-white">
+            Top Gainer Today
         </div>
+        <div class="caard-body">
+            <h5 class="card-title">@ViewData["TopGainer"]</h5>
+            <p class="card-text text-muted">
+                Trading Volume: @{
+                long vol = (long)ViewData["Volume"]!;
+            }
+            <strong>@vol.ToString("N0")</strong>
+        </p>
     </div>
+</div>
+</div>
+
+<div class="mt-4">
+    <h5>Analyze</h5>
+    <p>Try these URLs</p>
+    <ul>
+        <li><a href="/Analyze/RELIANCE/0">/Analyze/RELIANCE</a></li>
+        <li><a href="/Analyze/TCS/7">/Analyze/TCS/7</a></li>
+        <li><a href="/Analyze/INFY/90">/Analyze/INFY/90</a></li>
+    </ul>
 </div>

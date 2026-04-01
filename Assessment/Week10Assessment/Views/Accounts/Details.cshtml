@@ -1,0 +1,120 @@
+@model weeek10.Models.Account
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Account</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccountNumber)
+        </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccountType)
+        </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Balance)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Balance)
+        </dd>
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OpenedOn)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OpenedOn)
+        </dd>
+    </dl>
+</div>
+
+<hr />
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>Transaction History</h4>
+    <a asp-controller="Transactions" asp-action="Create" asp-route-accountId="@Model?.Id"
+           class="btn btn-success btn-sm">
+        + New Transaction
+    </a>
+</div>
+
+@if (Model.Transactions == null || !Model.Transactions.Any())
+{
+    <div class="alert alert-info">
+        No transactions yet.
+        <a asp-controller="Transactions" asp-action="Create" asp-route-accountId="@Model?.Id">
+            Add your first transaction →
+        </a>
+    </div>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th class="text-end">Amount (₹)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model.Transactions)
+            {
+                <tr>
+                    <td>@t.Date.ToString("dd MMM yyyy")</td>
+                    <td>@t.Description</td>
+                    <td>
+                        @if (t.Category == "Income")
+                        {
+                            <span class="badge bg-success"> Income</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger"> Expense</span>
+                        }
+                    </td>
+                    <td class="text-end fw-bold @(t.Category == "Income" ? "text-success" : "text-danger")">
+                        @(t.Category == "Income" ? "+" : "-")₹@t.Amount.ToString("N2")
+                    </td>
+                    <td class="text-center">
+                        <form asp-controller="Transactions" asp-action="Delete" method="post" style="display:inline"
+                              onsubmit="return confirm('Delete this transaction?')">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@t.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot class="table-light fw-bold">
+            <tr>
+                <td colspan="3" class="text-end">Account Balance:</td>
+                <td class="text-end @(Model.Balance >= 0 ? "text-success" : "text-danger")">
+                    ₹@Model.Balance.ToString("N2")
+                </td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+}
+
+<div class="mt-4">
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+</div>

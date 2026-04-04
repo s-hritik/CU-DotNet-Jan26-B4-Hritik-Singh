@@ -1,0 +1,40 @@
+@model IEnumerable<TravelFrontend.Models.Destination>
+
+@{
+    ViewData["Title"] = "Destinations Index";
+}
+
+<h1>All Travel Destinations</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>City</th>
+            <th>Country</th>
+            <th>Description</th>
+            <th>Rating</th>
+            <th>Last Visited</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CityName</td>
+                    <td>@item.Country</td>
+                    <td>@item.Description</td>
+                    <td>@item.Rating / 5</td>
+                    <td>@item.LastVisited.ToShortDateString()</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">No destinations found. Make sure your API is running!</td>
+            </tr>
+        }
+    </tbody>
+</table>

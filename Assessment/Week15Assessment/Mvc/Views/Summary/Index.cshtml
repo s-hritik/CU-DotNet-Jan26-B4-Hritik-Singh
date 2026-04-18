@@ -1,0 +1,26 @@
+@model IEnumerable<CategorySummaryDto>
+
+<div class="container mt-4">
+    <h2>Category Analytics Summary</h2>
+    <table class="table table-striped table-hover table-bordered mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th>Category</th>
+                <th>Product Count</th>
+                <th>Avg Price</th>
+                <th>Most Expensive Product</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CategoryName</td>
+                    <td>@item.ProductCount</td>
+                    <td>@item.AvgPrice.ToString("C")</td>
+                    <td>@(item.MostExpensiveProduct ?? "N/A")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

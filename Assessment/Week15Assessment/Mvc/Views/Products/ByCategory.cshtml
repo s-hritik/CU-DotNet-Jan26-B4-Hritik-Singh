@@ -1,0 +1,32 @@
+@model IEnumerable<ProductDto>
+
+<div class="container mt-4">
+    <h2>Products</h2>
+    <a asp-controller="Categories" asp-action="Index" class="btn btn-secondary mb-3">Back to Categories</a>
+    
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm border-info">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">@item.ProductName</h5>
+                            <hr />
+                            <p class="card-text"><strong>Price:</strong> @item.UnitPrice.ToString("C")</p>
+                            <p class="card-text"><strong>In Stock:</strong> @item.UnitsInStock</p>
+                            <div class="alert alert-success p-2 mb-0">
+                                <strong>Inventory Value:</strong> @item.InventoryValue.ToString("C")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-warning">No products found for this category.</div>
+        }
+    </div>
+</div>
